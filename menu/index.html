@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú — Borrego's Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #7A1A1A;
+    --crimson-dark: #5A0F0F;
+    --crimson-light: #9B2626;
+    --gold: #B8860B;
+    --gold-light: #D4A017;
+    --cream: #F7EDD8;
+    --cream-dark: #EDD9B0;
+    --cream-deeper: #E5C98A;
+    --brown: #6B3A2A;
+    --text-dark: #2C1810;
+    --text-mid: #5A3020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--crimson-dark);
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.02) 8px,
+      rgba(255,255,255,0.02) 9px
+    );
+  }
+
+  .header-ornament {
+    color: var(--gold-light);
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-family: 'Libre Baskerville', serif;
+    margin-bottom: 16px;
+    opacity: 0.85;
+  }
+
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .restaurant-label {
+    color: var(--cream-dark);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .brand-name {
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 10vw, 68px);
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 2px 3px 12px rgba(0,0,0,0.4);
+    letter-spacing: -1px;
+  }
+
+  .brand-name span {
+    color: var(--gold-light);
+  }
+
+  .slogan {
+    color: var(--cream-dark);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    font-style: italic;
+    margin-top: 10px;
+    opacity: 0.9;
+  }
+
+  .header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .header-divider::before,
+  .header-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--gold-light);
+    opacity: 0.5;
+  }
+
+  .diamond {
+    color: var(--gold-light);
+    font-size: 8px;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-wrap {
+    background: var(--crimson);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .nav-wrap::-webkit-scrollbar { display: none; }
+
+  .nav {
+    display: flex;
+    white-space: nowrap;
+    padding: 0 12px;
+    min-width: max-content;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Libre Baskerville', serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-btn.active,
+  .nav-btn:hover {
+    color: var(--gold-light);
+  }
+
+  .nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: var(--gold-light);
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    text-align: center;
+    padding: 36px 0 24px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 40px);
+    color: var(--crimson);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .section-title em {
+    display: block;
+    font-size: 0.55em;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 4px;
+  }
+
+  .section-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px auto 0;
+    max-width: 200px;
+  }
+
+  .section-line::before,
+  .section-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .section-line .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  /* ── DISH CARD ── */
+  .dish-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .dish {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(180,130,60,0.18);
+    gap: 12px;
+  }
+
+  .dish:last-child { border-bottom: none; }
+
+  .dish-info { flex: 1; }
+
+  .dish-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .dish-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13.5px;
+    color: var(--text-mid);
+    font-style: italic;
+    margin-top: 3px;
+    line-height: 1.4;
+    opacity: 0.85;
+  }
+
+  .dish-badge {
+    display: inline-block;
+    background: var(--crimson);
+    color: #fff;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Libre Baskerville', serif;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 5px;
+  }
+
+  .dish-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--crimson);
+    font-weight: 600;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  .dish-price::before {
+    content: '$';
+    font-size: 11px;
+    vertical-align: top;
+    margin-top: 3px;
+    display: inline-block;
+    opacity: 0.7;
+  }
+
+  /* ── SUBSECTION ── */
+  .subsection-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--crimson);
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+    padding: 24px 0 12px;
+    border-top: 1px solid var(--cream-deeper);
+    margin-top: 8px;
+  }
+
+  /* ── KIDS SECTION ── */
+  .kids-header {
+    background: var(--crimson-dark);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .kids-header h3 {
+    color: var(--gold-light);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+  }
+
+  .kids-header p {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--crimson-dark);
+    padding: 32px 20px;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .footer-info {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream-dark);
+    font-size: 14px;
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+
+  .footer-phone {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--gold);
+    color: #fff;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    padding: 10px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  .footer-slogan {
+    color: var(--gold-light);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    margin-top: 16px;
+    opacity: 0.85;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 480px) {
+    .dish-name { font-size: 15px; }
+    .dish-desc { font-size: 14px; }
+    .nav-btn { font-size: 12px; padding: 15px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-ornament">&#10022; León, Guanajuato &#10022;</div>
+  <div class="logo-area">
+    <span class="restaurant-label">Restaurant</span>
+    <h1 class="brand-name">Borrego<span>'s</span></h1>
+    <p class="slogan">Alegría por Tradición</p>
+  </div>
+  <div class="header-divider">
+    <span class="diamond">&#9670;</span>
+    <span class="diamond">&#9670;</span>
+    <span class="diamond">&#9670;</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('entradas', this)">Entradas</button>
+    <button class="nav-btn" onclick="showSection('sopas', this)">Sopas</button>
+    <button class="nav-btn" onclick="showSection('ensaladas', this)">Ensaladas</button>
+    <button class="nav-btn" onclick="showSection('especialidades', this)">Especialidades</button>
+    <button class="nav-btn" onclick="showSection('carnes', this)">Carnes y Mar</button>
+    <button class="nav-btn" onclick="showSection('ninos', this)">Niños</button>
+    <button class="nav-btn" onclick="showSection('bebidas', this)">Bebidas</button>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="content">
+
+  <!-- ENTRADAS -->
+  <section class="section active" id="entradas">
+    <div class="section-header">
+      <h2 class="section-title">Entradas</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Empanada de Queso</div></div>
+        <div class="dish-price">70</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Sopes (3)</div>
+          <div class="dish-desc">Rellenos de frijoles, chorizo, arrachera y pollo; complementados con queso, crema y lechuga</div>
+        </div>
+        <div class="dish-price">135</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Manitas de cerdo en vinagre (4)</div>
+          <div class="dish-desc">Bañadas con salsa de jitomate y chiles en vinagre</div>
+        </div>
+        <div class="dish-price">145</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Champiñón al Ajillo</div>
+          <div class="dish-desc">Frescos champiñones preparados en aceite de ajo con el toque especial de la casa</div>
+        </div>
+        <div class="dish-price">145</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Chistorra</div>
+          <div class="dish-desc">Asada a la plancha, acompañada con guacamole</div>
+        </div>
+        <div class="dish-price">155</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Tacos de sesos (3)</div>
+          <div class="dish-desc">Doraditos, guisados con jitomate, cebolla y chile verde</div>
+        </div>
+        <div class="dish-price">145</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Queso fundido Natural</div></div>
+        <div class="dish-price">150</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Queso fundido con Champiñones ó Rajas</div></div>
+        <div class="dish-price">160</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Queso Panela Asado</div>
+          <div class="dish-desc">Acompañado con champiñones al ajillo</div>
+        </div>
+        <div class="dish-price">160</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Queso fundido con Chorizo ó Chistorra</div></div>
+        <div class="dish-price">170</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Machitos</div>
+          <div class="dish-desc">Doraditos en salsa verde, preparados con nuestra receta secreta</div>
+        </div>
+        <div class="dish-price">170</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Orden de tripas</div>
+          <div class="dish-desc">Crujientes, fritas en la plancha</div>
+        </div>
+        <div class="dish-price">170</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Quesadillas de Arrachera (3 piezas)</div>
+          <div class="dish-desc">Deliciosas con tortilla de comal</div>
+        </div>
+        <div class="dish-price">175</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Cecina</div>
+          <div class="dish-desc">Carne seca de res frita acompañada de frijoles refritos y guacamole</div>
+        </div>
+        <div class="dish-price">190</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Coctel Chico de Camarón</div></div>
+        <div class="dish-price">195</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Coctel Chico de Camarón y Pulpo</div></div>
+        <div class="dish-price">205</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Coctel Grande de Camarón</div></div>
+        <div class="dish-price">225</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Coctel Grande de Camarón y Pulpo</div></div>
+        <div class="dish-price">255</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Botana Mixta (2 personas)</div>
+          <div class="dish-desc">Machitos en salsa verde, queso panela, chorizo, cecina y arrachera con guarnición de guacamole</div>
+        </div>
+        <div class="dish-price">365</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOPAS -->
+  <section class="section" id="sopas">
+    <div class="section-header">
+      <h2 class="section-title">Sopas y Pastas</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Consomé de Pollo</div>
+          <div class="dish-desc">Con arroz, pechuga desmenuzada y aguacate</div>
+        </div>
+        <div class="dish-price">75</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Sopa Azteca</div>
+          <div class="dish-desc">Rico caldo de jitomate sazonado, acompañado de aguacate, queso panela, chile pasilla y tiritas de tortillas doradas</div>
+        </div>
+        <div class="dish-price">85</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Sopa de Médula</div>
+          <div class="dish-desc">Tradicional sopa de médula de res con un toque de chile chipotle</div>
+        </div>
+        <div class="dish-price">100</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Consomé de Carnero ¡Bien Caliente!</div>
+          <div class="dish-desc">Con trozos de barbacoa y garbanzos</div>
+        </div>
+        <div class="dish-price">105</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Jugo de Carne</div>
+          <div class="dish-desc">Lo mejor de la carne</div>
+        </div>
+        <div class="dish-price">110</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Espagueti al Burro, Crema ó Mantequilla</div></div>
+        <div class="dish-price">145</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Espagueti a la Bolognesa</div></div>
+        <div class="dish-price">160</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Espagueti a la Reina (Con camarón)</div></div>
+        <div class="dish-price">270</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENSALADAS -->
+  <section class="section" id="ensaladas">
+    <div class="section-header">
+      <h2 class="section-title">Ensaladas</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Ensalada Verde</div>
+          <div class="dish-desc">Mezcla de lechuga, pepino, pimiento morrón verde, apio y aguacate con aderezo de mostaza y queso parmesano</div>
+        </div>
+        <div class="dish-price">145</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Ensalada Mixta</div>
+          <div class="dish-desc">Fajitas de pollo asadas a la plancha con champiñones, lechuga, pepino, zanahoria y pimiento morrón, bañada con aderezo César y queso parmesano</div>
+        </div>
+        <div class="dish-price">165</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Ensalada del Chef</div>
+          <div class="dish-desc">Exquisita combinación de queso amarillo, jamón, queso panela, champiñones, gajos de jitomate, tocino y lechuga, bañados con aderezo de mostaza y queso parmesano</div>
+        </div>
+        <div class="dish-price">180</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESPECIALIDADES -->
+  <section class="section" id="especialidades">
+    <div class="section-header">
+      <h2 class="section-title">
+        <em>Nuestras</em>
+        Especialidades
+      </h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Chile en Nogada</div>
+          <div class="dish-desc">Se lo preparamos todo el año</div>
+          <span class="dish-badge">Todo el año</span>
+        </div>
+        <div class="dish-price">205</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Chile en Hojaldre</div>
+          <div class="dish-desc">Delicioso chile poblano relleno de queso panela y envuelto en pasta de hojaldre sobre un espejo de salsa poblana</div>
+        </div>
+        <div class="dish-price">205</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Chamorro de Cerdo Adobado</div>
+          <div class="dish-desc">Especialidad por tradición — IMPERDIBLE</div>
+          <span class="dish-badge">Especialidad</span>
+        </div>
+        <div class="dish-price">255</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Barbacoa de Carnero 250 grs</div>
+          <div class="dish-desc">Horneado con penca de maguey, estilo Texcoco, acompañada de nopales</div>
+        </div>
+        <div class="dish-price">270</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Pulpo Borracho</div>
+          <div class="dish-desc">Preparado con ajo, chiles guajillo y pasilla con un baño de cerveza, acompañado con papa y nopal</div>
+        </div>
+        <div class="dish-price">280</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Molcajete Individual</div>
+          <div class="dish-desc">Abundante y exquisito. Servido con arrachera, chorizo, bastones de queso panela y salsa molcajete</div>
+        </div>
+        <div class="dish-price">305</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Parrillada Individual</div>
+          <div class="dish-desc">Arrachera, fajas de pollo y chorizo, acompañada de frijoles refritos</div>
+        </div>
+        <div class="dish-price">305</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARNES -->
+  <section class="section" id="carnes">
+    <div class="section-header">
+      <h2 class="section-title">Cielo, Mar y Tierra</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Enchiladas Rojas (3)</div>
+          <div class="dish-desc">Simplemente deliciosas, acompañadas de una pieza de pollo</div>
+        </div>
+        <div class="dish-price">200</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Filete de Pescado 250 grs</div>
+          <div class="dish-desc">Empanizado, al ajillo ó al mojo de ajo</div>
+        </div>
+        <div class="dish-price">210</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Milanesa de Pollo 180 grs</div>
+          <div class="dish-desc">Riquísima pechuga de pollo empanizada y sazonada, acompañada de ensalada de lechuga y papas a la francesa</div>
+        </div>
+        <div class="dish-price">215</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Pollo Asado 350 grs</div>
+          <div class="dish-desc">Acompañado de verduras al vapor y papas a la francesa</div>
+        </div>
+        <div class="dish-price">225</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Milanesa de Res 180 grs</div>
+          <div class="dish-desc">Acompañada de ensalada de lechuga y papas a la francesa</div>
+        </div>
+        <div class="dish-price">250</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Lengua de Res estilo Veracruz 150 grs</div>
+          <div class="dish-desc">Con el auténtico sabor de la cocina mexicana</div>
+        </div>
+        <div class="dish-price">260</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Filete Azul 180 grs</div>
+          <div class="dish-desc">Asado, bañado con champiñones, tocino, chile poblano y papa cocida</div>
+        </div>
+        <div class="dish-price">270</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Tampiqueña 180 grs</div>
+          <div class="dish-desc">Tradicional corte de res acompañado de frijoles, guacamole, arroz y una enchilada</div>
+        </div>
+        <div class="dish-price">265</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Salmón 250 grs</div>
+          <div class="dish-desc">Alcaparado, a los 3 chiles ó a la parrilla</div>
+        </div>
+        <div class="dish-price">275</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Arrachera 250 grs</div>
+          <div class="dish-desc">Asada con frijolitos charros y guacamole</div>
+        </div>
+        <div class="dish-price">275</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Camarones Bilbaina 175 grs</div>
+          <div class="dish-desc">Asados y sazonados con pimiento rojo y verde, con cebolla fileteada y guindillas de chile guajillo con toque de ajo</div>
+        </div>
+        <div class="dish-price">275</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Camarones al gusto 175 grs</div>
+          <div class="dish-desc">A la diabla, mantequilla, al ajillo ó empanizados</div>
+        </div>
+        <div class="dish-price">275</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Filete Azteca 250 grs</div>
+          <div class="dish-desc">Tierno filete de res, gratinado con queso, sobre una salsa borracha, frijoles charros y guarnición de arroz</div>
+        </div>
+        <div class="dish-price">300</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Sábana 250 grs</div>
+          <div class="dish-desc">Deliciosa arrachera cubierta con frijoles refritos, salsa roja y gratinada con queso asadero</div>
+        </div>
+        <div class="dish-price">310</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">T-Bone 350 grs</div>
+          <div class="dish-desc">A la parrilla acompañado de ensalada y papas a la francesa</div>
+        </div>
+        <div class="dish-price">330</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Churrasco 350 grs</div>
+          <div class="dish-desc">Tierno corazón de filete, acompañado de ensalada y papa al horno</div>
+        </div>
+        <div class="dish-price">345</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Rib Eye 350 grs</div>
+          <div class="dish-desc">Jugoso corte de res a la parrilla, acompañado con ensalada y papas a la francesa</div>
+        </div>
+        <div class="dish-price">380</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Cowboy 500 grs</div>
+          <div class="dish-desc">A la parrilla, acompañado con papas al gratín y ensalada</div>
+          <span class="dish-badge">El más grande</span>
+        </div>
+        <div class="dish-price">455</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIÑOS -->
+  <section class="section" id="ninos">
+    <div class="section-header">
+      <h2 class="section-title">Menú Infantil</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+    <div class="kids-header">
+      <h3>Rito, El Borreguito</h3>
+      <p>Le recomienda a sus amiguitos</p>
+    </div>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Hot Dog</div>
+          <div class="dish-desc">Salchicha de res envuelta en tocino acompañado de papas a la francesa</div>
+        </div>
+        <div class="dish-price">65</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Consomé de Pollo</div>
+          <div class="dish-desc">Auténtico consomé con aguacate, arroz y pollo desmenuzado</div>
+        </div>
+        <div class="dish-price">75</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Nuggets de Pollo (6 piezas)</div>
+          <div class="dish-desc">Crujientes, acompañados de papas a la francesa y ensalada rusa</div>
+        </div>
+        <div class="dish-price">85</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Quesadillas (3 piezas)</div>
+          <div class="dish-desc">Deliciosas con tortilla de comal</div>
+        </div>
+        <div class="dish-price">85</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Spaguetti Infantil al Burro</div>
+          <div class="dish-desc">Con mantequilla y jamón</div>
+        </div>
+        <div class="dish-price">95</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Hamburguesa</div>
+          <div class="dish-desc">Deliciosa carne de res acompañada de papas a la francesa</div>
+        </div>
+        <div class="dish-price">95</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Spaguetti Infantil Bolognesa</div></div>
+        <div class="dish-price">105</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Milanesa Infantil</div>
+          <div class="dish-desc">Riquísima pechuga de pollo empanizada, acompañada de papas a la francesa y ensalada rusa</div>
+        </div>
+        <div class="dish-price">115</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEBIDAS -->
+  <section class="section" id="bebidas">
+    <div class="section-header">
+      <h2 class="section-title">Bebidas y Postres</h2>
+      <div class="section-line"><span class="dot"></span></div>
+    </div>
+
+    <p class="subsection-title">Bebidas preparadas</p>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Refresco</div>
+          <div class="dish-desc">Coca Cola, Agua Mineral, Fanta, Squirt, Manzana, Sprite 355 ml.</div>
+        </div>
+        <div class="dish-price">40</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Refresco Light</div>
+          <div class="dish-desc">Coca Cola y Coca Cola Sin azúcar 355 ml.</div>
+        </div>
+        <div class="dish-price">42</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Copa Chabela de limonada ó naranjada</div></div>
+        <div class="dish-price">50</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Copa Chabela de agua de sabor</div></div>
+        <div class="dish-price">50</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Jarra de limonada ó naranjada 1.5 Lt.</div>
+          <div class="dish-desc">Horchata, Lima y Jamaica — solo fines de semana</div>
+        </div>
+        <div class="dish-price">150</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Jarra de agua de sabor 1.5 Lt.</div>
+          <div class="dish-desc">Horchata, Lima y Jamaica — solo fines de semana</div>
+        </div>
+        <div class="dish-price">150</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Botella de agua natural 600ml</div></div>
+        <div class="dish-price">42</div>
+      </div>
+    </div>
+
+    <p class="subsection-title">Café</p>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Té de Manzanilla ó Limón</div></div>
+        <div class="dish-price">30</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">De Olla</div>
+          <div class="dish-desc">Solo sábados y domingos</div>
+        </div>
+        <div class="dish-price">30</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Americano</div></div>
+        <div class="dish-price">45</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Expresso</div></div>
+        <div class="dish-price">60</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Capuccino</div></div>
+        <div class="dish-price">70</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info">
+          <div class="dish-name">Carajillo</div>
+          <div class="dish-desc">Café expreso y Licor 43</div>
+          <span class="dish-badge">Favorito</span>
+        </div>
+        <div class="dish-price">150</div>
+      </div>
+    </div>
+
+    <p class="subsection-title">Postres</p>
+    <div class="dish-list">
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Flan Napolitano</div></div>
+        <div class="dish-price">55</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Jericalla</div></div>
+        <div class="dish-price">55</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Pay de Queso con Fresa ó Zarzamora</div></div>
+        <div class="dish-price">80</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Pastel de la Casa</div></div>
+        <div class="dish-price">85</div>
+      </div>
+      <div class="dish">
+        <div class="dish-info"><div class="dish-name">Helados Surtidos</div></div>
+        <div class="dish-price">95</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-name">Borrego's Restaurant</div>
+  <div class="footer-info">
+    Blvrd José María Morelos 202, León, Gto.<br>
+    Desde 1986
+  </div>
+  <a class="footer-phone" href="tel:4775801802">(477) 580 1802</a>
+  <div class="footer-slogan">Alegría por Tradición</div>
+</footer>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
